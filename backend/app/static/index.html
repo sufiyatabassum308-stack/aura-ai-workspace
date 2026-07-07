@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AURA AI Workspace</title>
+
+<style>
+
+    .typing {
+    display: inline-block;
+}
+
+.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 2px;
+    background: #60a5fa;
+    border-radius: 50%;
+    animation: blink 1.4s infinite both;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:#0b1220;
+    color:white;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:1000px;
+    max-width:95%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.title h1{
+    font-size:38px;
+}
+
+.title p{
+    color:#94a3b8;
+    margin-top:8px;
+}
+
+.card{
+    background:#111827;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+
+input[type=file],
+input[type=text]{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#1f2937;
+    color:white;
+    font-size:16px;
+}
+
+input[type=text]:focus{
+    outline:none;
+    border:1px solid #3b82f6;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+#output{
+    margin-top:25px;
+    background:#0f172a;
+    border-radius:15px;
+    padding:20px;
+    height:350px;
+    overflow-y:auto;
+    border:1px solid #1e293b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">
+        <h1>🤖 AURA AI Workspace</h1>
+        <p>Upload a PDF and chat with your documents using AI.</p>
+    </div>
+
+    <div class="card">
+
+        <input type="file" id="fileInput">
+        <button onclick="uploadPDF()">📄 Upload PDF</button>
+
+        <div id="output"></div>
+
+        <div class="chat-box">
+            <input
+                type="text"
+                id="question"
+                placeholder="Ask anything about your PDF..."
+            >
+            <button onclick="ask()">➤ Send</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function showSourceModal(text) {
+    document.getElementById("modalContent").innerText = text;
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+const output = document.getElementById("output");
+
+function addMessage(sender, message) {
+
+    const bubble = document.createElement("div");
+
+    const isUser = sender === "You";
+
+    bubble.style.maxWidth = "80%";
+    bubble.style.margin = "10px 0";
+    bubble.style.padding = "12px 15px";
+    bubble.style.borderRadius = "14px";
+    bubble.style.whiteSpace = "pre-wrap";
+    bubble.style.lineHeight = "1.5";
+    bubble.style.fontSize = "14px";
+
+    if (isUser) {
+        bubble.style.marginLeft = "auto";
+        bubble.style.background = "#2563eb";
+        bubble.style.color = "white";
+        bubble.style.textAlign = "left";
+    } else {
+        bubble.style.marginRight = "auto";
+        bubble.style.background = "#1e293b";
+        bubble.style.border = "1px solid #334155";
+        bubble.style.color = "#e2e8f0";
+    }
+
+    bubble.innerHTML = `<b>${sender}</b><br><br>${message}`;
+
+    output.appendChild(bubble);
+    output.scrollTop = output.scrollHeight;
+}
+async function uploadPDF(){
+
+    let file = document.getElementById("fileInput").files[0];
+
+    if(!file){
+
+        alert("Please select a PDF first.");
+        return;
+
+    }
+
+    let formData = new FormData();
+
+    formData.append("file", file);
+
+    addMessage("System","📄 Uploading PDF...");
+
+    let res = await fetch("http://127.0.0.1:8000/upload-pdf",{
+
+        method:"POST",
+
+        body:formData
+
+    });
+
+    let data = await res.json();
+
+    addMessage("System","✅ Uploaded: " + data.filename);
+
+}
+
+async function ask() {
+
+    let q = document.getElementById("question").value;
+
+    if (q.trim() === "") return;
+
+    addMessage("You", q);
+    addMessage("AURA", `
+<span class="typing">
+    AURA is thinking
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</span>
+`);
+
+    document.getElementById("question").value = "";
+
+    let res = await fetch(
+        "http://127.0.0.1:8000/ask-pdf?question=" + encodeURIComponent(q),
+        {
+            method: "POST"
+        }
+    );
+
+    let data = await res.json();
+    output.removeChild(output.lastChild);
+
+    if (data.answer) {
+    addMessage("AURA", data.answer);
+
+    // show sources
+    if (data.sources && data.sources.length > 0) {
+
+    let sourceText = "📄 Sources:\n\n";
+
+    data.sources.forEach((s, index) => {
+
+        sourceText += `
+<div style="margin-top:10px; padding:10px; background:#0f172a; border-radius:10px; cursor:pointer;"
+onclick="showSourceModal(s.text)"
+
+<b>${index + 1}. ${s.source}</b><br>
+<small>${s.preview || s.text.substring(0, 100)}...</small>
+
+</div>
+`;
+    });
+
+    addMessage("AURA", sourceText);
+}
+
+} else {
+    addMessage("AURA", "❌ " + data.error);
+}
+
+}
+document.getElementById("question").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        event.preventDefault();
+        ask();
+    }
+
+});
+
+</script>
+<div id="modal" style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+">
+
+    <div style="
+        background:#111827;
+        padding:20px;
+        border-radius:12px;
+        width:70%;
+        max-height:80%;
+        overflow:auto;
+        color:white;
+    ">
+
+        <button onclick="closeModal()" style="
+            float:right;
+            background:red;
+            border:none;
+            padding:5px 10px;
+            color:white;
+            cursor:pointer;
+        ">X</button>
+
+        <pre id="modalContent" style="white-space:pre-wrap;"></pre>
+
+    </div>
+
+</div>
+</body>
+</html>

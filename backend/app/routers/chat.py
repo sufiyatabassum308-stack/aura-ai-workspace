@@ -1,17 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
+import os
 
 from app.schemas.chat_schema import ChatRequest
 from app.services.gemini_service import generate_response
+from app.services.document_service import DOCUMENT_STORE, extract_text_from_pdf
+
 
 router = APIRouter()
-
-
-@router.post("/chat")
-def chat(request: ChatRequest):
-
-    answer = generate_response(request.question)
-
-    return {
-        "question": request.question,
-        "response": answer
-    }
