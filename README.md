@@ -1,4 +1,4 @@
-# 🤖 AURA AI Assistant
+#  AURA AI Assistant
 
 ### AI-Powered Document Intelligence System using Retrieval Augmented Generation (RAG)
 
@@ -8,32 +8,32 @@ The project demonstrates the implementation of a complete AI pipeline including 
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-### 📄 Document Understanding
+###  Document Understanding
 
 * Upload PDF documents and extract meaningful information.
 * Automatically processes documents for AI-based querying.
 
-### 🔍 Retrieval Augmented Generation (RAG)
+###  Retrieval Augmented Generation (RAG)
 
 * Converts document content into searchable vector representations.
 * Retrieves relevant context before generating answers.
 * Reduces inaccurate responses by grounding answers in uploaded documents.
 
-### 🤖 AI-Powered Question Answering
+###  AI-Powered Question Answering
 
 * Ask questions directly from uploaded documents.
 * Generates context-aware and meaningful responses.
 
-### ⚡ Fast Backend API
+###  Fast Backend API
 
 * Built using FastAPI for high-performance API development.
 * Modular backend structure for scalability and maintainability.
 
 ---
 
-# 🏗️ System Architecture
+#  System Architecture
 
 ```
                 User
@@ -68,7 +68,7 @@ The project demonstrates the implementation of a complete AI pipeline including 
 
 ---
 
-# 🛠️ Tech Stack
+#  Tech Stack
 
 ## Backend
 
@@ -100,7 +100,7 @@ The project demonstrates the implementation of a complete AI pipeline including 
 
 ---
 
-# 📂 Project Structure
+#  Project Structure
 
 ```
 AURA-AI-ASSISTANT/
@@ -123,7 +123,7 @@ AURA-AI-ASSISTANT/
 
 ---
 
-# ⚙️ Installation & Setup
+#  Installation & Setup
 
 ### 1. Clone the repository
 
@@ -191,7 +191,7 @@ http://127.0.0.1:8000
 
 ---
 
-# 💡 How It Works
+#  How It Works
 
 1. User uploads a PDF document.
 2. The system extracts text from the document.
@@ -203,7 +203,7 @@ http://127.0.0.1:8000
 
 ---
 
-# 🎯 Learning Outcomes
+#  Learning Outcomes
 
 Through this project, I implemented:
 
@@ -216,7 +216,7 @@ Through this project, I implemented:
 
 ---
 
-# 🔮 Future Improvements
+#  Future Improvements
 
 * Support for multiple document formats
 * Conversation memory
@@ -226,7 +226,7 @@ Through this project, I implemented:
 
 ---
 
-# 👩‍💻 Author
+#  Author
 
 **Sufiya Tabassum**
 
@@ -235,4 +235,4 @@ Interested in Artificial Intelligence, Generative AI, and Backend Development
 
 ---
 
-⭐ If you find this project interesting, consider giving it a star!
+#If you find this project interesting, consider giving it a star!
