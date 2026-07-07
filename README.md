@@ -1,88 +1,72 @@
-#  AURA AI Assistant
+# AURA AI Assistant
 
-### AI-Powered Document Intelligence System using Retrieval Augmented Generation (RAG)
+## AI-Powered Document Intelligence System using Retrieval Augmented Generation (RAG)
 
-AURA AI Assistant is an intelligent document-based AI assistant that allows users to upload documents and ask questions based on their content. It uses **Retrieval Augmented Generation (RAG)** to retrieve relevant information from uploaded documents and generate accurate, context-aware responses using Large Language Models.
+AURA AI Assistant is an intelligent document-based AI system that allows users to upload PDF documents and interact with them through natural language queries.
 
-The project demonstrates the implementation of a complete AI pipeline including document processing, embeddings, semantic search, and LLM-powered response generation.
+The system uses **Retrieval Augmented Generation (RAG)** to retrieve relevant information from uploaded documents and generate accurate, context-aware responses using Large Language Models (LLMs).
+
+This project demonstrates a complete Generative AI pipeline including document processing, text extraction, embeddings generation, semantic search, and LLM-based response generation.
 
 ---
 
-##  Key Features
+## Key Features
 
-###  Document Understanding
+### 📄 Document Understanding
 
 * Upload PDF documents and extract meaningful information.
-* Automatically processes documents for AI-based querying.
+* Processes documents into AI-searchable knowledge.
 
-###  Retrieval Augmented Generation (RAG)
+### 🔎 Retrieval Augmented Generation (RAG)
 
-* Converts document content into searchable vector representations.
-* Retrieves relevant context before generating answers.
-* Reduces inaccurate responses by grounding answers in uploaded documents.
+* Converts document content into vector embeddings.
+* Performs semantic similarity search to retrieve relevant information.
+* Generates responses grounded in uploaded document context.
 
-###  AI-Powered Question Answering
+### 🤖 AI-Powered Question Answering
 
 * Ask questions directly from uploaded documents.
-* Generates context-aware and meaningful responses.
+* Provides context-aware and meaningful answers.
 
-###  Fast Backend API
+### ⚡ Fast Backend API
 
-* Built using FastAPI for high-performance API development.
-* Modular backend structure for scalability and maintainability.
+* Built using FastAPI.
+* Modular backend architecture for scalability and maintainability.
 
 ---
 
-#  System Architecture
+# System Architecture
 
-```
-                User
-                  |
-                  |
-          Upload PDF Document
-                  |
-                  |
-          Text Extraction
-                  |
-                  |
-          Document Chunking
-                  |
-                  |
-          Generate Embeddings
-                  |
-                  |
-          Vector Database
-                  |
-                  |
-          Similarity Search
-                  |
-                  |
-        Retrieve Relevant Context
-                  |
-                  |
-             LLM Processing
-                  |
-                  |
-          Generated Response
+```mermaid
+flowchart TD
+
+A[User Uploads PDF] --> B[Text Extraction]
+B --> C[Document Chunking]
+C --> D[Generate Embeddings]
+D --> E[Vector Storage]
+E --> F[Similarity Search]
+F --> G[Retrieve Relevant Context]
+G --> H[LLM Processing]
+H --> I[Generated Response]
 ```
 
 ---
 
-#  Tech Stack
+# Tech Stack
 
 ## Backend
 
 * Python
 * FastAPI
 
-## AI / Machine Learning
+## Generative AI
 
 * Large Language Models (LLM)
 * Retrieval Augmented Generation (RAG)
 * Text Embeddings
 * Semantic Search
 
-## AI Frameworks & Tools
+## AI Tools & Frameworks
 
 * LangChain
 * Google Gemini API
@@ -100,14 +84,14 @@ The project demonstrates the implementation of a complete AI pipeline including 
 
 ---
 
-#  Project Structure
+# Project Structure
 
 ```
-AURA-AI-ASSISTANT/
+AURA-AI-WORKSPACE/
 
 │
 ├── app/
-│   ├── routes/
+│   ├── routers/
 │   ├── services/
 │   ├── schemas/
 │   └── main.py
@@ -123,27 +107,27 @@ AURA-AI-ASSISTANT/
 
 ---
 
-#  Installation & Setup
+# Installation & Setup
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/AURA-AI-ASSISTANT.git
-```
-
-### 2. Navigate to project directory
+### 1. Clone Repository
 
 ```bash
-cd AURA-AI-ASSISTANT
+git clone https://github.com/sufiyatabassum308-stack/aura-ai-workspace.git
 ```
 
-### 3. Create virtual environment
+### 2. Navigate to Project Directory
+
+```bash
+cd aura-ai-workspace
+```
+
+### 3. Create Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate environment:
+Activate:
 
 Windows:
 
@@ -157,15 +141,11 @@ Linux/Mac:
 source venv/bin/activate
 ```
 
----
-
-### 4. Install dependencies
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
-
----
 
 ### 5. Configure Environment Variables
 
@@ -173,9 +153,9 @@ Create a `.env` file:
 
 ```
 GEMINI_API_KEY=your_api_key_here
+DATABASE_URL=your_database_url
+SECRET_KEY=your_secret_key
 ```
-
----
 
 ### 6. Run Application
 
@@ -183,7 +163,7 @@ GEMINI_API_KEY=your_api_key_here
 uvicorn app.main:app --reload
 ```
 
-Application will run at:
+Application runs at:
 
 ```
 http://127.0.0.1:8000
@@ -191,32 +171,33 @@ http://127.0.0.1:8000
 
 ---
 
-#  How It Works
+# How It Works
 
 1. User uploads a PDF document.
 2. The system extracts text from the document.
-3. The text is divided into smaller meaningful chunks.
-4. Each chunk is converted into embeddings.
+3. Extracted text is split into meaningful chunks.
+4. Chunks are converted into vector embeddings.
 5. Embeddings are stored for efficient retrieval.
-6. User questions are matched with relevant document sections.
-7. The LLM generates an answer using retrieved context.
+6. User queries are matched with relevant document sections.
+7. The LLM generates answers using retrieved context.
 
 ---
 
-#  Learning Outcomes
+# Learning Outcomes
 
 Through this project, I implemented:
 
 * Real-world Generative AI application development
-* RAG architecture design
-* LLM integration
-* Document processing pipelines
-* API development using FastAPI
-* AI system deployment workflow
+* RAG pipeline design and implementation
+* LLM API integration
+* Document processing workflows
+* Semantic search systems
+* FastAPI backend development
+* AI application deployment workflow
 
 ---
 
-#  Future Improvements
+# Future Improvements
 
 * Support for multiple document formats
 * Conversation memory
@@ -226,13 +207,14 @@ Through this project, I implemented:
 
 ---
 
-#  Author
+# Author
 
 **Sufiya Tabassum**
 
-Data Science Engineering Student
-Interested in Artificial Intelligence, Generative AI, and Backend Development
+Data Science Engineering Student focused on:
 
----
+* Artificial Intelligence
+* Generative AI
+* Backend Development
+* Machine Learning Applications
 
-#If you find this project interesting, consider giving it a star!
