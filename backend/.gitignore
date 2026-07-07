@@ -1,11 +1,11 @@
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
 
-# Virtual environment
+# Virtual Environment
 venv/
 
-# Environment variables
+# Environment Variables
 .env
 
 # VS Code
@@ -13,3 +13,13 @@ venv/
 
 # macOS
 .DS_Store
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+*.log
+
+uploads/*
+documents/*
